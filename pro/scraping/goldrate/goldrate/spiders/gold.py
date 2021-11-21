@@ -41,14 +41,14 @@ class GoldSpider(scrapy.Spider):
         # committing the changes
         con.commit()
         print('data committed')
-        account_sid = 'ACae0379a57e5593820dc76a52a4b9561a'
-        auth_token = '622a593bb6a107b646bf1b11879d7756'
+        account_sid = 'Twilio account sid'
+        auth_token = 'Twilio auth token'
         client = Client(account_sid, auth_token)
         message = client.messages.create(
             body='date:{}      goldcaret:{}        gold new cost:₹{}       gold old cost₹{}'.format(
                 dictionary['date'], dictionary['goldcaret'], dictionary['cost_today'], dictionary['cost_yesterday']),
-            from_='+19123784845',
-            to='+917893883109'
+            from_='Twilio api number',
+            to='Recipient number'
         )
 
         print(message.sid)
