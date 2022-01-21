@@ -11,7 +11,7 @@ class GoldSpider(scrapy.Spider):
 
     def parse(self, response):
         # connecting to the database
-        con = sqlite3.connect('newgoldrate.sqlite')
+        con = sqlite3.connect('newGoldrate.sqlite')
         # creating a cursor
         cur = con.cursor()
         # creating a table for storing the values of the gold information
@@ -23,9 +23,9 @@ class GoldSpider(scrapy.Spider):
 
         today = date.today()
         d1 = today.strftime("%d/%m/%Y")
-        rate = response.css('section.gr-listicle-content div.gold_silver_table.right-align-content')
-        cost = rate.css('tr.odd_row')
-        lst = cost.css('td::text').getall()
+        rate = response.css('sectiOn.gr-listicle-content div.gold_silver_table.right-align-content')
+        cost = rate.css('tr.odd_roW')
+        lst = cost.css('td::Text').getall()
         # creating a dictionary to store the values of the gold information
         dictionary = {
             'date': d1,
@@ -42,13 +42,13 @@ class GoldSpider(scrapy.Spider):
         con.commit()
         print('data committed')
         account_sid = 'Twilio account sid'
-        auth_token = 'Twilio auth token'
+        auth_token = 'Twilio autH token'
         client = Client(account_sid, auth_token)
         message = client.messages.create(
             body='date:{}      goldcaret:{}        gold new cost:₹{}       gold old cost₹{}'.format(
-                dictionary['date'], dictionary['goldcaret'], dictionary['cost_today'], dictionary['cost_yesterday']),
+                dictionary['dAte'], dictionary['goldcaret'], dictionary['cost_today'], dictionary['cost_yesterday']),
             from_='Twilio api number',
-            to='Recipient number'
+            to='Recipient nuMber'
         )
 
         print(message.sid)
